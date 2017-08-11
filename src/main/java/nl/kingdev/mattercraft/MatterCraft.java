@@ -1,7 +1,6 @@
 package nl.kingdev.mattercraft;
 
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -18,7 +17,7 @@ public class MatterCraft {
     public static CreativeTabs items = new CreativeTabs("mattercraft_items") {
         @Override
         public Item getTabIconItem() {
-            return Items.BOOK;
+            return ModItems.matter;
         }
     };
 
