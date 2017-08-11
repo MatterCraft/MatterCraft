@@ -16,29 +16,32 @@ import java.util.List;
 
 public class ModItems {
 
+    public static Item matter;
     private static List<Item> items = new ArrayList();
 
-    public static void register(){
-            registerItem(new ItemMatter());
+    public static void register() {
+        registerItem(matter = new ItemMatter());
     }
 
-    private static void registerItem(Item i){
+    private static void registerItem(Item i) {
         items.add(i);
         GameRegistry.register(i);
         Utils.getLogger().info("Registered Item " + i.getUnlocalizedName().substring(5));
     }
+
     @SideOnly(Side.CLIENT)
-    public static void registerRenders(){
+    public static void registerRenders() {
         for (Item item : items) {
-            if(!item.getHasSubtypes()){
+            if (!item.getHasSubtypes()) {
                 registerRender(item);
             }
         }
     }
+
     @SideOnly(Side.CLIENT)
-    private static void registerRender(Item i){
+    private static void registerRender(Item i) {
         ModelLoader.setCustomModelResourceLocation(i, 0, new ModelResourceLocation(new ResourceLocation(Reference.mod_id, i.getUnlocalizedName().substring(5)), "inventory"));
-        Utils.getLogger().info("Registered render for " + i.getUnlocalizedName().substring(5));
+        Utils.getLogger().info("Registered Render " + i.getUnlocalizedName().substring(5));
     }
 
 }
