@@ -1,14 +1,14 @@
 [
 {
-  "modid": "examplemod",
-  "name": "Example Mod",
-  "description": "Example placeholder mod.",
-  "version": "${version}",
-  "mcversion": "${mcversion}",
-  "url": "",
+  "modid": "mattercraft",
+  "name": "MatterCraft",
+  "description": "A mod All About Matter",
+  "version": "0.1",
+  "mcversion": "1.0",
+  "url": "kingdev.nl/mattercraft",
   "updateUrl": "",
-  "authorList": ["ExampleDude"],
-  "credits": "The Forge and FML guys, for making this example",
+  "authorList": ["King_Jasper"],
+  "credits": "MatterCraft",
   "logoFile": "",
   "screenshots": [],
   "dependencies": []
