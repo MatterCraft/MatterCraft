@@ -20,10 +20,10 @@ public class ModBlocks {
 
     private static List<Block> blocks = new ArrayList();
 
-    public static Block blockMatterFabricator;
+    public static Block matterFabricator;
 
     public static void register() {
-        registerBlock(blockMatterFabricator = new BlockMatterFabricator());
+        registerBlock(matterFabricator = new BlockMatterFabricator());
     }
 
     public static void registerBlock(Block block) {
