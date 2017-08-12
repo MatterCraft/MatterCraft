@@ -8,7 +8,13 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import nl.kingdev.mattercraft.MatterCraft;
 import nl.kingdev.mattercraft.info.Reference;
+import nl.kingdev.mattercraft.tileentity.TileEntityMatterFabricator;
 
+/**
+ * 
+ * @author CJMinecraft
+ *
+ */
 public class BlockMatterFabricator extends BlockMachine {
 
 	public BlockMatterFabricator() {
@@ -16,14 +22,8 @@ public class BlockMatterFabricator extends BlockMachine {
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(World worldIn, int meta) {
-		return null;
-	}
-	
-	@Override
-	public TileEntity createTileEntity(World world, IBlockState state) {
-		// TODO Auto-generated method stub
-		return super.createTileEntity(world, state);
+	public TileEntity createNewTileEntity(World world, int meta) {
+		return new TileEntityMatterFabricator();
 	}
 
 }

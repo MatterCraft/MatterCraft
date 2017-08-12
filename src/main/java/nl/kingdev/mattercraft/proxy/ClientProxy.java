@@ -10,17 +10,18 @@ public class ClientProxy extends CommonProxy {
 
     @Override
     public void onPreInit(FMLPreInitializationEvent e) {
+    	super.onPreInit(e);
         ModItems.registerRenders();
         ModBlocks.registerRenders();
     }
 
     @Override
     public void onInit(FMLInitializationEvent e) {
-
+    	super.onInit(e);
     }
 
     @Override
     public void onPostInit(FMLPostInitializationEvent e) {
-
+    	super.onPostInit(e);
     }
 }

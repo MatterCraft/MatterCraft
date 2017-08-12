@@ -4,7 +4,13 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import nl.kingdev.mattercraft.tileentity.TileEntityPhotonGenerator;
 
+/**
+ * 
+ * @author CJMinecraft
+ *
+ */
 public class BlockPhotonGenerator extends BlockMachine {
 
 	public BlockPhotonGenerator(String unlocalizedName) {
@@ -12,13 +18,8 @@ public class BlockPhotonGenerator extends BlockMachine {
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(World worldIn, int meta) {
-		return null;
-	}
-	
-	@Override
-	public TileEntity createTileEntity(World world, IBlockState state) {
-		return super.createTileEntity(world, state);
+	public TileEntity createNewTileEntity(World world, int meta) {
+		return new TileEntityPhotonGenerator();
 	}
 
 }
