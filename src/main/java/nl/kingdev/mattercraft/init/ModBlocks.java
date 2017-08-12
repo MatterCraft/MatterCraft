@@ -12,6 +12,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import nl.kingdev.mattercraft.block.BlockMatterFabricator;
 import nl.kingdev.mattercraft.block.BlockPhotonGenerator;
 import nl.kingdev.mattercraft.info.Reference;
+import nl.kingdev.mattercraft.util.LoggerUtils;
 import nl.kingdev.mattercraft.util.Utils;
 
 import java.lang.reflect.Field;
@@ -30,6 +31,7 @@ public class ModBlocks {
         for(Field field : ModBlocks.class.getFields()) {
             try {
                 Block block = (Block) field.get(Block.class);
+                LoggerUtils.riabfmc++;
                 registerBlock(block);
             } catch (IllegalAccessException e) {
                 e.printStackTrace();

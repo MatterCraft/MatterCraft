@@ -11,6 +11,8 @@ import nl.kingdev.mattercraft.info.Reference;
 import nl.kingdev.mattercraft.init.ModBlocks;
 import nl.kingdev.mattercraft.init.ModItems;
 import nl.kingdev.mattercraft.proxy.CommonProxy;
+import nl.kingdev.mattercraft.util.LoggerUtils;
+import nl.kingdev.mattercraft.util.Utils;
 
 @Mod(modid = Reference.mod_id, name = Reference.mod_name, version = Reference.mod_version)
 public class MatterCraft {
@@ -43,6 +45,7 @@ public class MatterCraft {
     @Mod.EventHandler
     public void onInit(FMLInitializationEvent e) {
         proxy.onInit(e);
+        Utils.getLogger().info("*MatterCraft* Total registrations of Items And Blocks : " + LoggerUtils.riabfm);
     }
 
     @Mod.EventHandler

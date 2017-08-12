@@ -9,6 +9,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import nl.kingdev.mattercraft.info.Reference;
 import nl.kingdev.mattercraft.item.ItemMatter;
+import nl.kingdev.mattercraft.util.LoggerUtils;
 import nl.kingdev.mattercraft.util.Utils;
 
 import java.lang.reflect.Field;
@@ -26,6 +27,7 @@ public class ModItems {
             try {
                 Item item = (Item) field.get(Item.class);
                 registerItem(item);
+                LoggerUtils.riabfmc++;
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
             }
