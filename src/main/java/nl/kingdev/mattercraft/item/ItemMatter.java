@@ -11,7 +11,6 @@ import net.minecraft.world.World;
 import nl.kingdev.mattercraft.MatterCraft;
 import nl.kingdev.mattercraft.info.Reference;
 
-import java.util.ArrayList;
 import java.util.Collection;
 
 public class ItemMatter extends Item {
@@ -27,6 +26,7 @@ public class ItemMatter extends Item {
     public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
       if(entityIn instanceof EntityPlayer) {
           EntityPlayer thePlayer = (EntityPlayer) entityIn;
+          if(thePlayer.isCreative() || thePlayer.isSpectator()) return;
           Collection<PotionEffect> effects = thePlayer.getActivePotionEffects();
 
           boolean hasWitherEffect = false;
