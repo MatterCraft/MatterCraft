@@ -39,6 +39,7 @@ public class MatterCraft {
         proxy.onPreInit(e);
     }
 
+
     @Mod.EventHandler
     public void onInit(FMLInitializationEvent e) {
         proxy.onInit(e);
