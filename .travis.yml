@@ -23,6 +23,10 @@ install:
 # Build the Project.
 script:
   - ./gradlew build -S
+  - ./gradlew sonarqube \
+      -Dsonar.organization=mattercraft \
+      -Dsonar.host.url=https://sonarcloud.io \
+      -Dsonar.login=$sonarkey
 
 # Clean up after Gradle
 env:
