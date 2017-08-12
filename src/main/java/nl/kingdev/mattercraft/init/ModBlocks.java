@@ -10,6 +10,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import nl.kingdev.mattercraft.block.BlockMatterFabricator;
+import nl.kingdev.mattercraft.block.BlockPhotonGenerator;
 import nl.kingdev.mattercraft.info.Reference;
 import nl.kingdev.mattercraft.util.Utils;
 
@@ -22,6 +23,7 @@ public class ModBlocks {
     private static List<Block> blocks = new ArrayList();
 
     public static Block matterFabricator = new BlockMatterFabricator();
+    public static Block photonGenerator = new BlockPhotonGenerator();
 
     public static void register() {
 
@@ -33,7 +35,6 @@ public class ModBlocks {
                 e.printStackTrace();
             }
         }
-
 
     }
 

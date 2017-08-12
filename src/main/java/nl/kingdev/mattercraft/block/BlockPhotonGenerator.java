@@ -13,7 +13,7 @@ import nl.kingdev.mattercraft.tileentity.TileEntityPhotonGenerator;
  */
 public class BlockPhotonGenerator extends BlockMachine {
 
-	public BlockPhotonGenerator(String unlocalizedName) {
+	public BlockPhotonGenerator() {
 		super("photon_generator");
 	}
 
