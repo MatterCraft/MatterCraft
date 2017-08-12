@@ -8,6 +8,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import nl.kingdev.mattercraft.info.Reference;
+import nl.kingdev.mattercraft.init.ModBlocks;
 import nl.kingdev.mattercraft.init.ModItems;
 import nl.kingdev.mattercraft.proxy.CommonProxy;
 
@@ -20,6 +21,12 @@ public class MatterCraft {
             return ModItems.matter;
         }
     };
+    public static CreativeTabs blocks = new CreativeTabs("mattercraft_blocks") {
+        @Override
+        public Item getTabIconItem() {
+            return Item.getItemFromBlock(ModBlocks.blockMatterFabricator);
+        }
+    };
 
 
     @SidedProxy(serverSide = Reference.proxy_server, clientSide = Reference.proxy_client)
@@ -28,6 +35,7 @@ public class MatterCraft {
     @Mod.EventHandler
     public void onPreInit(FMLPreInitializationEvent e) {
         ModItems.register();
+        ModBlocks.register();
         proxy.onPreInit(e);
     }
 

@@ -9,6 +9,7 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import nl.kingdev.mattercraft.block.BlockMatterFabricator;
 import nl.kingdev.mattercraft.info.Reference;
 import nl.kingdev.mattercraft.util.Utils;
 
@@ -19,11 +20,14 @@ public class ModBlocks {
 
     private static List<Block> blocks = new ArrayList();
 
-    public static void register() {
+    public static Block blockMatterFabricator;
 
+    public static void register() {
+        registerBlock(blockMatterFabricator = new BlockMatterFabricator());
     }
 
     public static void registerBlock(Block block) {
+
         blocks.add(block);
         GameRegistry.register(block);
         GameRegistry.register(new ItemBlock(block).setRegistryName(block.getRegistryName()));
