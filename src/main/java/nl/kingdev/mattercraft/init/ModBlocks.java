@@ -13,6 +13,7 @@ import nl.kingdev.mattercraft.block.BlockMatterFabricator;
 import nl.kingdev.mattercraft.info.Reference;
 import nl.kingdev.mattercraft.util.Utils;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,10 +21,20 @@ public class ModBlocks {
 
     private static List<Block> blocks = new ArrayList();
 
-    public static Block matterFabricator;
+    public static Block matterFabricator = new BlockMatterFabricator();
 
     public static void register() {
-        registerBlock(matterFabricator = new BlockMatterFabricator());
+
+        for(Field field : ModBlocks.class.getFields()) {
+            try {
+                Block block = (Block) field.get(Block.class);
+                registerBlock(block);
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
+
+
     }
 
     public static void registerBlock(Block block) {

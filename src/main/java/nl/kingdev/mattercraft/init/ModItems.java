@@ -11,19 +11,29 @@ import nl.kingdev.mattercraft.info.Reference;
 import nl.kingdev.mattercraft.item.ItemMatter;
 import nl.kingdev.mattercraft.util.Utils;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ModItems {
 
-    public static Item matter;
-    private static List<Item> items = new ArrayList();
 
+    private static List<Item> items = new ArrayList();
+    public static Item matter = new ItemMatter();
     public static void register() {
-        registerItem(matter = new ItemMatter());
+
+        for(Field field : ModItems.class.getFields()) {
+            try {
+                Item item = (Item) field.get(Item.class);
+                registerItem(item);
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     private static void registerItem(Item i) {
+
         items.add(i);
         GameRegistry.register(i);
         Utils.getLogger().info("Registered Item " + i.getUnlocalizedName().substring(5));

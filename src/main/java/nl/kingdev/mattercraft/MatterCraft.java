@@ -24,7 +24,7 @@ public class MatterCraft {
     public static CreativeTabs blocks = new CreativeTabs("mattercraft_blocks") {
         @Override
         public Item getTabIconItem() {
-            return Item.getItemFromBlock(ModBlocks.blockMatterFabricator);
+            return Item.getItemFromBlock(ModBlocks.matterFabricator);
         }
     };
 
