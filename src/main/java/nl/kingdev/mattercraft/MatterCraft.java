@@ -15,6 +15,8 @@ import nl.kingdev.mattercraft.proxy.CommonProxy;
 @Mod(modid = Reference.mod_id, name = Reference.mod_name, version = Reference.mod_version)
 public class MatterCraft {
 
+    //Testing
+
     public static CreativeTabs items = new CreativeTabs("mattercraft_items") {
         @Override
         public Item getTabIconItem() {
