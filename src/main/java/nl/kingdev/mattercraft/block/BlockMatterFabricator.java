@@ -11,8 +11,8 @@ public class BlockMatterFabricator extends Block {
 
     public BlockMatterFabricator() {
         super(Material.IRON);
-        setUnlocalizedName("Matter Fabricator");
-        setRegistryName(new ResourceLocation(Reference.mod_id, "matterfabricator"));
+        setUnlocalizedName("matter_fabricator");
+        setRegistryName(new ResourceLocation(Reference.mod_id, "matter_fabricator"));
         setCreativeTab(MatterCraft.blocks);
 
     }

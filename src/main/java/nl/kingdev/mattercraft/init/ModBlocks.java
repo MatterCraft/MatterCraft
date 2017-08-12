@@ -27,7 +27,6 @@ public class ModBlocks {
     }
 
     public static void registerBlock(Block block) {
-
         blocks.add(block);
         GameRegistry.register(block);
         GameRegistry.register(new ItemBlock(block).setRegistryName(block.getRegistryName()));
