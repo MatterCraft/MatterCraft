@@ -45,7 +45,7 @@ public class MatterCraft {
     @Mod.EventHandler
     public void onInit(FMLInitializationEvent e) {
         proxy.onInit(e);
-        Utils.getLogger().info("*MatterCraft* Total registrations of Items And Blocks : " + LoggerUtils.riabfm);
+        Utils.getLogger().info("*MatterCraft* Total registrations of Items And Blocks : " + LoggerUtils.riabfmc);
     }
 
     @Mod.EventHandler
