@@ -1,2 +1,7 @@
+tile.matter_fabricator.name=Matter Fabricator
+tile.photon_generator.name=Photon Generator
+
 item.matter.name=Matter
+
 itemGroup.mattercraft_items=Mattercraft Items
+itemGroup.mattercraft_blocks=Mattercraft Blocks
