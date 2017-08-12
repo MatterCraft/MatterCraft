@@ -5,6 +5,11 @@ language: java
 sudo: false
 
 addons:
+addons:
+  sonarcloud:
+    organization: "mattercraft" # the key of the org you chose at step #3
+    token:
+      secure: $sonarkey # encrypted value of your token
   apt:
     packages:
       - oracle-java8-installer
@@ -23,10 +28,7 @@ install:
 # Build the Project.
 script:
   - ./gradlew build -S
-  - ./gradlew sonarqube \
-      -Dsonar.organization=mattercraft \
-      -Dsonar.host.url=https://sonarcloud.io \
-      -Dsonar.login=$sonarkey
+  - sonar-scanner
 
 # Clean up after Gradle
 env:
