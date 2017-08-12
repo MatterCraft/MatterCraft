@@ -18,7 +18,7 @@ public class ItemMatter extends Item {
     public ItemMatter() {
         this.setUnlocalizedName("matter");
         this.setRegistryName(new ResourceLocation(Reference.mod_id, "matter"));
-        this.setMaxStackSize(15);
+        this.setMaxStackSize(16);
         this.setCreativeTab(MatterCraft.items);
     }
 

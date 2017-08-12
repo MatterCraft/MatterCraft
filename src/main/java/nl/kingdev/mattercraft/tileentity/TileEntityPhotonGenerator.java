@@ -1,5 +1,6 @@
 package nl.kingdev.mattercraft.tileentity;
 
+import cofh.api.energy.IEnergyReceiver;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
@@ -14,7 +15,7 @@ import nl.kingdev.mattercraft.util.CustomEnergyStorage;
  * @author CJMinecraft
  *
  */
-public class TileEntityPhotonGenerator extends TileEntityBase implements ITickable {
+public class TileEntityPhotonGenerator extends TileEntityBase implements ITickable, IEnergyReceiver {
 
 	private CustomEnergyStorage storage;
 	private BlockPos matterFabricatorPos = BlockPos.ORIGIN;
@@ -27,9 +28,16 @@ public class TileEntityPhotonGenerator extends TileEntityBase implements ITickab
 	public void update() {
 		if (this.worldObj != null) {
 			if (!this.worldObj.isRemote) {
-				if (this.worldObj.getBlockState(this.matterFabricatorPos)
-						.getBlock() == ModBlocks.matterFabricator || findMatterFabricator()) {
-					//SHOULD FIRE BEAM
+				if (this.worldObj.getBlockState(this.matterFabricatorPos).getBlock() == ModBlocks.matterFabricator
+						|| findMatterFabricator()) {
+					// SHOULD FIRE BEAM
+					if (this.storage.extractEnergyInternal(25000, true) == 25000
+							&& ((TileEntityMatterFabricator) this.worldObj
+									.getTileEntity(this.matterFabricatorPos)).acceptingPhotons) {
+						// If it can take 25K RF and the matter fabricator is accepting photons
+						this.storage.extractEnergyInternal(25000, false);
+						((TileEntityMatterFabricator) this.worldObj.getTileEntity(this.matterFabricatorPos)).photons++;
+					}
 				}
 			}
 		}
@@ -39,7 +47,7 @@ public class TileEntityPhotonGenerator extends TileEntityBase implements ITickab
 		for (BlockPos pos : BlockPos.getAllInBox(
 				new BlockPos(this.pos.getX() - 6, this.pos.getY() - 6, this.pos.getZ() - 6),
 				new BlockPos(this.pos.getX() + 6, this.pos.getY() + 6, this.pos.getZ() + 6))) {
-			if(this.worldObj.getBlockState(pos).getBlock() == ModBlocks.matterFabricator) {
+			if (this.worldObj.getBlockState(pos).getBlock() == ModBlocks.matterFabricator) {
 				this.matterFabricatorPos = pos;
 				return true;
 			}
@@ -71,6 +79,26 @@ public class TileEntityPhotonGenerator extends TileEntityBase implements ITickab
 		if (capability == CapabilityEnergy.ENERGY)
 			return (T) this.storage;
 		return super.getCapability(capability, facing);
+	}
+
+	@Override
+	public int getEnergyStored(EnumFacing from) {
+		return this.storage.getEnergyStored();
+	}
+
+	@Override
+	public int getMaxEnergyStored(EnumFacing from) {
+		return this.storage.getMaxEnergyStored();
+	}
+
+	@Override
+	public boolean canConnectEnergy(EnumFacing from) {
+		return true;
+	}
+
+	@Override
+	public int receiveEnergy(EnumFacing from, int maxReceive, boolean simulate) {
+		return this.storage.receiveEnergy(maxReceive, simulate);
 	}
 
 }

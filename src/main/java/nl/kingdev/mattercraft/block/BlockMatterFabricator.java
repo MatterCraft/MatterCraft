@@ -33,7 +33,7 @@ public class BlockMatterFabricator extends BlockMachine {
 		if(!world.isRemote) {
 			if(world.getTileEntity(pos) == null)
 				return super.onBlockActivated(world, pos, state, player, hand, heldItem, side, hitX, hitY, hitZ); 
-			if(heldItem.getItem() instanceof ItemBucket) {
+			if(heldItem != null && heldItem.getItem() instanceof ItemBucket) {
 				FluidUtil.tryFillContainer(heldItem, world.getTileEntity(pos).getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, side), 1000, player, true);
 				if(FluidRegistry.isUniversalBucketEnabled() && heldItem.getItem() instanceof UniversalBucket)
 					if(((UniversalBucket) heldItem.getItem()).getFluid(heldItem).getFluid() == FluidRegistry.WATER)

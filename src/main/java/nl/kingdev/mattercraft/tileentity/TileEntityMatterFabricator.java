@@ -11,6 +11,7 @@ import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import nl.kingdev.mattercraft.init.ModItems;
+import nl.kingdev.mattercraft.util.Utils;
 
 /**
  * 
@@ -23,7 +24,6 @@ public class TileEntityMatterFabricator extends TileEntityBase implements ITicka
 	public int photons = 0;
 	private ItemStackHandler handler;
 	private FluidTank tank;
-	private int duration;
 
 	public TileEntityMatterFabricator() {
 		this.handler = new ItemStackHandler(1) {
@@ -41,9 +41,11 @@ public class TileEntityMatterFabricator extends TileEntityBase implements ITicka
 			if (!this.worldObj.isRemote) {
 				if (this.worldObj.isBlockPowered(this.pos) && this.handler.getStackInSlot(0) == null) {
 					this.acceptingPhotons = true;
+					Utils.getLogger().info("START!");
 				}
 				if (this.photons >= 1200) { // 60 * 20
 					this.acceptingPhotons = false;
+					this.photons = 0;
 					this.handler.setStackInSlot(0, new ItemStack(ModItems.matter));
 				}
 			}
