@@ -4,6 +4,10 @@ language: java
 # Tell Travis we want container-based builds.
 sudo: false
 
+# Serius i got over 40 Mails today...
+notifications:
+  email: false
+
 addons:
   apt:
     packages:
