@@ -1,5 +1,6 @@
 tile.matter_fabricator.name=Matter Fabricator
 tile.photon_generator.name=Photon Generator
+tile.infinite_water.name=Infinite Water
 
 item.matter.name=Matter
 
