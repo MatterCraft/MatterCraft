@@ -8,6 +8,7 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import nl.kingdev.mattercraft.init.ModItems;
@@ -24,6 +25,10 @@ public class TileEntityMatterFabricator extends TileEntityBase implements ITicka
 	public int photons = 0;
 	private ItemStackHandler handler;
 	private FluidTank tank;
+	
+	private int previousPhotons = this.photons; //TODO remove
+	
+	private int errors;
 
 	public TileEntityMatterFabricator() {
 		this.handler = new ItemStackHandler(1) {
@@ -32,22 +37,36 @@ public class TileEntityMatterFabricator extends TileEntityBase implements ITicka
 				return 1;
 			}
 		};
-		this.tank = new FluidTank(FluidRegistry.WATER, 0, 8000);
+		this.tank = new FluidTank(FluidRegistry.WATER, 0, 16000);
 	}
-
+	
 	@Override
 	public void update() {
 		if (this.worldObj != null) {
 			if (!this.worldObj.isRemote) {
-				if (this.worldObj.isBlockPowered(this.pos) && this.handler.getStackInSlot(0) == null) {
+				if (this.worldObj.isBlockPowered(this.pos) && this.handler.getStackInSlot(0) == null && !this.acceptingPhotons) {
 					this.acceptingPhotons = true;
-					Utils.getLogger().info("START!");
+					this.errors = 0;
 				}
-				if (this.photons >= 1200) { // 60 * 20
+				
+				if(this.acceptingPhotons && this.tank.getFluidAmount() < 1000)
+					this.errors++;
+				
+				if(this.acceptingPhotons && this.photons != 0 && this.photons % 40 == 0 && this.tank.getFluidAmount() >= 1000)
+					this.tank.drainInternal(500, true);
+				
+				if (this.photons >= 30000) { // 25 * 60 * 20
+					this.handler.setStackInSlot(0, new ItemStack(ModItems.matter));
 					this.acceptingPhotons = false;
 					this.photons = 0;
-					this.handler.setStackInSlot(0, new ItemStack(ModItems.matter));
 				}
+				
+				if(this.acceptingPhotons && this.errors >= 5) {
+					this.worldObj.createExplosion(null, this.pos.getX(), this.pos.getY(), this.pos.getZ(), 25, true);
+					this.acceptingPhotons = false;
+					this.errors = 0;
+				}
+				Utils.getLogger().info(this.tank.getFluidAmount());
 			}
 		}
 	}
@@ -59,6 +78,7 @@ public class TileEntityMatterFabricator extends TileEntityBase implements ITicka
 		this.tank.readFromNBT(nbt);
 		this.acceptingPhotons = nbt.getBoolean("AcceptingPhotons");
 		this.photons = nbt.getInteger("Photons");
+		this.errors = nbt.getInteger("Errors");
 	}
 
 	@Override
@@ -67,12 +87,13 @@ public class TileEntityMatterFabricator extends TileEntityBase implements ITicka
 		this.tank.writeToNBT(nbt);
 		nbt.setBoolean("AcceptingPhotons", this.acceptingPhotons);
 		nbt.setInteger("Photons", this.photons);
+		nbt.setInteger("Errors", this.errors);
 		return super.writeToNBT(nbt);
 	}
 
 	@Override
 	public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
-		if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY
+		if ((capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY && facing == EnumFacing.DOWN)
 				|| capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
 			return true;
 		return super.hasCapability(capability, facing);

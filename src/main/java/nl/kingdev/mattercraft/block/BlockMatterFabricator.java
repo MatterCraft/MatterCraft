@@ -9,12 +9,15 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
+import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.UniversalBucket;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import nl.kingdev.mattercraft.tileentity.TileEntityMatterFabricator;
+import nl.kingdev.mattercraft.util.Utils;
 
 /**
  * 
@@ -33,23 +36,18 @@ public class BlockMatterFabricator extends BlockMachine {
 		if(!world.isRemote) {
 			if(world.getTileEntity(pos) == null)
 				return super.onBlockActivated(world, pos, state, player, hand, heldItem, side, hitX, hitY, hitZ); 
-			if(heldItem != null && heldItem.getItem() instanceof ItemBucket) {
-				FluidUtil.tryFillContainer(heldItem, world.getTileEntity(pos).getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, side), 1000, player, true);
-				if(FluidRegistry.isUniversalBucketEnabled() && heldItem.getItem() instanceof UniversalBucket)
-					if(((UniversalBucket) heldItem.getItem()).getFluid(heldItem).getFluid() == FluidRegistry.WATER)
-						FluidUtil.tryEmptyContainer(heldItem, world.getTileEntity(pos).getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, side), 1000, player, true);
-				else
-					if(heldItem.getItem() == Items.WATER_BUCKET)
-						FluidUtil.tryEmptyContainer(heldItem, world.getTileEntity(pos).getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, side), 1000, player, true);
+			if(heldItem != null) {
+				if(heldItem.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, null)) {
+					return FluidUtil.interactWithFluidHandler(heldItem, world.getTileEntity(pos).getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, null), player);
+				}
 			}
 		}
-		return super.onBlockActivated(world, pos, state, player, hand, heldItem, side, hitX, hitY, hitZ);
+		return false;
 	}
 
 	@Override
 	public TileEntity createNewTileEntity(World world, int meta) {
 		return new TileEntityMatterFabricator();
 	}
-
 
 }
