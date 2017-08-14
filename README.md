@@ -8,9 +8,9 @@ Made by Kingdev.nl and Contributors
 
 License:
 #### You CANNOT
-- Redistribute this in its entirety as source or compiled code (except in the case of mod pac).
+- Redistribute this in its entirety as source or compiled code (except in the case of modpack).
 - Create or distribute code which contains 50% or more functionally equivalent statements* from this repository.
-- Upload to any mod upload sites like CurseForge (You can when its in a mod pack)
+- Upload to any mod upload sites like CurseForge (You can when its in a modpack)
 #### You MUST
 - Give credits when using any code
 - Be open source
