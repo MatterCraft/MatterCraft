@@ -8,13 +8,13 @@ Made by Kingdev.nl and Contributors
 
 License:
 #### You CANNOT
-- Redistribute this in its entirety as source or compiled code (Except in the case of mod packs).
-- Create or distribute code which contains 50% or more Functionally Equivalent Statements* from this repository.
-- Upload to any modUpload sites like CurseForge (You can when its in a ModPack)
+- Redistribute this in its entirety as source or compiled code (except in the case of mod pac).
+- Create or distribute code which contains 50% or more functionally equivalent statements* from this repository.
+- Upload to any mod upload sites like CurseForge (You can when its in a mod pack)
 #### You MUST
-- Give credits When using any code
-- Be openSource
-- Be a Free Non Paid Project/Mod
+- Give credits when using any code
+- Be open source
+- Be a non profit organization
 
 
 Link to offcial CI Server: http://ci.kingdev.nl/job/MatterCraft/
