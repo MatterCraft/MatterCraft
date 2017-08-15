@@ -66,7 +66,6 @@ public class TileEntityMatterFabricator extends TileEntityBase implements ITicka
 					this.acceptingPhotons = false;
 					this.errors = 0;
 				}
-				Utils.getLogger().info(this.tank.getFluidAmount());
 			}
 		}
 	}

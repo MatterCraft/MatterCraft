@@ -6,6 +6,7 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
+import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 
 public class TileEntityInfiniteMatterWater extends TileEntityBase implements ITickable {
@@ -20,10 +21,15 @@ public class TileEntityInfiniteMatterWater extends TileEntityBase implements ITi
 
     @Override
     public void update() {
-    	if(this.worldObj != null)
-    		if(!this.worldObj.isRemote)
-    			if(this.tank.getFluidAmount() != 2048000) 
+    	if(this.worldObj != null) {
+    		if(!this.worldObj.isRemote) {
+    			if(this.tank.getFluidAmount() != 2048000)
     				this.tank.fillInternal(new FluidStack(FluidRegistry.WATER, this.tank.getCapacity()), true);
+    			for(EnumFacing side : EnumFacing.VALUES)
+    				if(this.worldObj.getTileEntity(this.pos.offset(side)) != null && this.worldObj.getTileEntity(this.pos.offset(side)).hasCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, side))
+    					FluidUtil.tryFluidTransfer(this.worldObj.getTileEntity(this.pos.offset(side)).getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, side), this.tank, 4000, true);
+    		}
+    	}
     }
 
     @Override
