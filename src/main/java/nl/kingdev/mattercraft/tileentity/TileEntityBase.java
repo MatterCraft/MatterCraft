@@ -8,6 +8,8 @@ import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 /**
  * A normal {@link TileEntity} which automatically should save
@@ -59,6 +61,7 @@ public class TileEntityBase extends TileEntity {
 	/**
 	 * Make sure to read the client data when it receives the update packet
 	 */
+	@SideOnly(Side.CLIENT)
 	@Override
 	public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
 		readClientDataFromNBT(pkt.getNbtCompound());
