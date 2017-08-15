@@ -26,8 +26,6 @@ public class TileEntityMatterFabricator extends TileEntityBase implements ITicka
 	private ItemStackHandler handler;
 	private FluidTank tank;
 	
-	private int previousPhotons = this.photons; //TODO remove
-	
 	private int errors;
 
 	public TileEntityMatterFabricator() {
@@ -38,6 +36,8 @@ public class TileEntityMatterFabricator extends TileEntityBase implements ITicka
 			}
 		};
 		this.tank = new FluidTank(FluidRegistry.WATER, 0, 16000);
+		this.tank.setCanDrain(false);
+		this.tank.setCanFill(true);
 	}
 	
 	@Override

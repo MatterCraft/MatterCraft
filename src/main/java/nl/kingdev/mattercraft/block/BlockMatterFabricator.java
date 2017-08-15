@@ -33,15 +33,8 @@ public class BlockMatterFabricator extends BlockMachine {
 	@Override
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player,
 			EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
-		if(!world.isRemote) {
-			if(world.getTileEntity(pos) == null)
-				return super.onBlockActivated(world, pos, state, player, hand, heldItem, side, hitX, hitY, hitZ); 
-			if(heldItem != null) {
-				if(heldItem.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, null)) {
-					return FluidUtil.interactWithFluidHandler(heldItem, world.getTileEntity(pos).getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, null), player);
-				}
-			}
-		}
+		if(!world.isRemote)
+			return FluidUtil.interactWithFluidHandler(heldItem, world.getTileEntity(pos).getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, side), player);
 		return false;
 	}
 
