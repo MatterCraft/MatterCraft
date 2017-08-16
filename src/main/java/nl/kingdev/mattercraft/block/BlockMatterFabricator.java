@@ -1,5 +1,6 @@
 package nl.kingdev.mattercraft.block;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyDirection;
@@ -25,6 +26,7 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.UniversalBucket;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+import nl.kingdev.mattercraft.init.ModBlocks;
 import nl.kingdev.mattercraft.tileentity.TileEntityMatterFabricator;
 import nl.kingdev.mattercraft.util.Utils;
 
@@ -34,6 +36,14 @@ import nl.kingdev.mattercraft.util.Utils;
  *
  */
 public class BlockMatterFabricator extends BlockMachine {
+
+	public static final AxisAlignedBB[] CENTRE = new AxisAlignedBB[] {
+			new AxisAlignedBB(0.1875D, 0.25D, 0.1875D, 0.8125D, 0.875D, 0.8125D),
+			new AxisAlignedBB(0.1875D, 0.875D, 0.1875D, 0.8125D, 0.25D, 0.8125D),
+			new AxisAlignedBB(0.25D, 0.1875D, 0.1875D, 0.875D, 0.8125D, 0.8125D),
+			new AxisAlignedBB(0.8125D, 0.1875D, 0.1875D, 0.875D, 0.25D, 0.8125D),
+			new AxisAlignedBB(0.1875D, 0.1875D, 0.25D, 0.8125D, 0.8125D, 0.875D),
+			new AxisAlignedBB(0.1875D, 0.1875D, 0.875D, 0.8125D, 0.8125D, 0.25D) };
 
 	public static final PropertyDirection FACING = PropertyDirection.create("facing");
 
@@ -45,17 +55,17 @@ public class BlockMatterFabricator extends BlockMachine {
 
 	@Override
 	public AxisAlignedBB getSelectedBoundingBox(IBlockState state, World worldIn, BlockPos pos) {
-		return BASE_AABB[getMetaFromState(state)];
+		return BASE_AABB[getMetaFromState(state)].union(CENTRE[getMetaFromState(state)]);
 	}
 
 	@Override
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-		return BASE_AABB[getMetaFromState(state)];
+		return BASE_AABB[getMetaFromState(state)].union(CENTRE[getMetaFromState(state)]);
 	}
 
 	@Override
 	public AxisAlignedBB getCollisionBoundingBox(IBlockState state, World worldIn, BlockPos pos) {
-		return BASE_AABB[getMetaFromState(state)];
+		return BASE_AABB[getMetaFromState(state)].union(CENTRE[getMetaFromState(state)]);
 	}
 
 	@Override
@@ -91,6 +101,25 @@ public class BlockMatterFabricator extends BlockMachine {
 	@Override
 	public BlockRenderLayer getBlockLayer() {
 		return BlockRenderLayer.TRANSLUCENT;
+	}
+	
+	@Override
+	public boolean shouldSideBeRendered(IBlockState currentState, IBlockAccess blockAccess, BlockPos pos,
+			EnumFacing side) {
+		IBlockState actualState = blockAccess.getBlockState(pos.offset(side));
+        Block block = actualState.getBlock();
+
+        if (this == ModBlocks.infinteWater) {
+            if (currentState != actualState) {
+                return true;
+            }
+
+            if (block == this) {
+                return false;
+            }
+        }
+
+        return block == this ? false : super.shouldSideBeRendered(currentState, blockAccess, pos, side);
 	}
 
 	@Override

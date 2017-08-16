@@ -1,5 +1,9 @@
 package nl.kingdev.mattercraft.item;
 
+import java.text.NumberFormat;
+
+import javax.swing.text.NumberFormatter;
+
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -50,9 +54,9 @@ public class ItemDebugWrench extends Item {
                         IFluidHandler ta = t.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, facing);
                         if (ta != null) {
                             IFluidTankProperties tank = ta.getTankProperties()[0];
-                            playerIn.addChatMessage(new TextComponentString("FluidTank Info:").setStyle(blue));
+                            playerIn.addChatMessage(new TextComponentString("Fluid Info:").setStyle(blue));
                             playerIn.addChatMessage(new TextComponentString("Tank Fluid: " + tank.getContents().getLocalizedName()).setStyle(green));
-                            playerIn.addChatMessage(new TextComponentString("Tank Amount: " + tank.getContents().amount + "mb / " + tank.getCapacity() + "mb").setStyle(green));
+                            playerIn.addChatMessage(new TextComponentString("Tank Amount: " + NumberFormat.getInstance().format(tank.getContents().amount) + "mb / " + NumberFormat.getInstance().format(tank.getCapacity()) + "mb").setStyle(green));
                             playerIn.addChatMessage(new TextComponentString("Can Extract: " + tank.canDrain() + ", Can Insert: " + tank.canFill()).setStyle(green));
                         }
 
@@ -60,7 +64,7 @@ public class ItemDebugWrench extends Item {
                     if (t.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, facing)) {
                         IItemHandler handler = t.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, facing);
                         if (handler != null) {
-                            playerIn.addChatMessage(new TextComponentString("ItemStackHandler Info:").setStyle(blue));
+                            playerIn.addChatMessage(new TextComponentString("Inventory Info:").setStyle(blue));
                             playerIn.addChatMessage(new TextComponentString("Slots: " + handler.getSlots()).setStyle(green));
                             for (int i = 0; i < handler.getSlots(); i++) {
                                 ItemStack s = handler.getStackInSlot(i);
@@ -73,12 +77,9 @@ public class ItemDebugWrench extends Item {
                     }
                     if(t.hasCapability(CapabilityEnergy.ENERGY, facing)){
                         playerIn.addChatMessage(new TextComponentString("Energy Info:").setStyle(blue));
-                        playerIn.addChatMessage(new TextComponentString("Energy Amount: " + EnergyUtils.getEnergyStored(t, facing) +  "rf / " + EnergyUtils.getMaxEnergyStored(t, facing) + "rf").setStyle(green));
-                        playerIn.addChatMessage(new TextComponentString("Can Extract: " + EnergyUtils.canExtract(t, facing) + ", Can Recive: " + EnergyUtils.canReceive(t, facing)).setStyle(green));
-
+                        playerIn.addChatMessage(new TextComponentString("Energy Amount: " + NumberFormat.getInstance().format(EnergyUtils.getEnergyStored(t, facing)) +  " FE / " +NumberFormat.getInstance().format(EnergyUtils.getMaxEnergyStored(t, facing)) + " FE").setStyle(green));
+                        playerIn.addChatMessage(new TextComponentString("Can Extract: " + EnergyUtils.canExtract(t, facing) + ", Can Receive: " + EnergyUtils.canReceive(t, facing)).setStyle(green));
                     }
-
-
                 }
             }
             return EnumActionResult.SUCCESS;

@@ -1,5 +1,6 @@
 package nl.kingdev.mattercraft.block;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -14,6 +15,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import nl.kingdev.mattercraft.init.ModBlocks;
 import nl.kingdev.mattercraft.tileentity.TileEntityPhotonGenerator;
 
 /**
@@ -69,6 +71,25 @@ public class BlockPhotonGenerator extends BlockMachine {
 	@Override
 	public boolean isFullCube(IBlockState state) {
 		return false;
+	}
+	
+	@Override
+	public boolean shouldSideBeRendered(IBlockState currentState, IBlockAccess blockAccess, BlockPos pos,
+			EnumFacing side) {
+		IBlockState actualState = blockAccess.getBlockState(pos.offset(side));
+        Block block = actualState.getBlock();
+
+        if (this == ModBlocks.infinteWater) {
+            if (currentState != actualState) {
+                return true;
+            }
+
+            if (block == this) {
+                return false;
+            }
+        }
+
+        return block == this ? false : super.shouldSideBeRendered(currentState, blockAccess, pos, side);
 	}
 	
 	@Override

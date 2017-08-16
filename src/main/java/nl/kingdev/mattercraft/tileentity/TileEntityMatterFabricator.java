@@ -11,6 +11,7 @@ import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
+import nl.kingdev.mattercraft.block.BlockMatterFabricator;
 import nl.kingdev.mattercraft.init.ModItems;
 import nl.kingdev.mattercraft.util.Utils;
 
@@ -25,7 +26,7 @@ public class TileEntityMatterFabricator extends TileEntityBase implements ITicka
 	public int photons = 0;
 	private ItemStackHandler handler;
 	private FluidTank tank;
-	
+
 	private int errors;
 
 	public TileEntityMatterFabricator() {
@@ -39,29 +40,31 @@ public class TileEntityMatterFabricator extends TileEntityBase implements ITicka
 		this.tank.setCanDrain(false);
 		this.tank.setCanFill(true);
 	}
-	
+
 	@Override
 	public void update() {
 		if (this.worldObj != null) {
 			if (!this.worldObj.isRemote) {
-				if (this.worldObj.isBlockPowered(this.pos) && this.handler.getStackInSlot(0) == null && !this.acceptingPhotons) {
+				if (this.worldObj.isBlockPowered(this.pos) && this.handler.getStackInSlot(0) == null
+						&& !this.acceptingPhotons) {
 					this.acceptingPhotons = true;
 					this.errors = 0;
 				}
-				
-				if(this.acceptingPhotons && this.tank.getFluidAmount() < 1000)
+
+				if (this.acceptingPhotons && this.tank.getFluidAmount() < 1000)
 					this.errors++;
-				
-				if(this.acceptingPhotons && this.photons != 0 && this.photons % 20 == 0 && this.tank.getFluidAmount() >= 1000)
+
+				if (this.acceptingPhotons && this.photons != 0 && this.photons % 20 == 0
+						&& this.tank.getFluidAmount() >= 1000)
 					this.tank.drainInternal(1000, true);
-				
+
 				if (this.photons >= 30000) { // 25 * 60 * 20
 					this.handler.setStackInSlot(0, new ItemStack(ModItems.matter));
 					this.acceptingPhotons = false;
 					this.photons = 0;
 				}
-				
-				if(this.acceptingPhotons && this.errors >= 5) {
+
+				if (this.acceptingPhotons && this.errors >= 5) {
 					this.worldObj.createExplosion(null, this.pos.getX(), this.pos.getY(), this.pos.getZ(), 25, true);
 					this.acceptingPhotons = false;
 					this.errors = 0;
@@ -92,7 +95,8 @@ public class TileEntityMatterFabricator extends TileEntityBase implements ITicka
 
 	@Override
 	public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
-		if ((capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY && facing == EnumFacing.DOWN)
+		if ((capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY
+				&& facing == this.worldObj.getBlockState(this.pos).getValue(BlockMatterFabricator.FACING))
 				|| capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
 			return true;
 		return super.hasCapability(capability, facing);
