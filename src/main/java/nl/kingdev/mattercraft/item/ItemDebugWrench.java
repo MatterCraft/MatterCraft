@@ -79,7 +79,7 @@ public class ItemDebugWrench extends Item {
                     if(t.hasCapability(CapabilityEnergy.ENERGY, facing)){
                         playerIn.addChatMessage(new TextComponentString("Energy Info:").setStyle(blue));
                         playerIn.addChatMessage(new TextComponentString("Energy Amount: " + EnergyUtils.getEnergyStored(t, facing) +  "rf / " + EnergyUtils.getMaxEnergyStored(t, facing) + "rf").setStyle(green));
-                        playerIn.addChatMessage(new TextComponentString("Can Extract: " + EnergyUtils.getCanExtract(t, facing) + ", Can Recive: " + EnergyUtils.getCanRecive(t, facing)).setStyle(green));
+                        playerIn.addChatMessage(new TextComponentString("Can Extract: " + EnergyUtils.canExtract(t, facing) + ", Can Recive: " + EnergyUtils.canReceive(t, facing)).setStyle(green));
 
                     }
 
