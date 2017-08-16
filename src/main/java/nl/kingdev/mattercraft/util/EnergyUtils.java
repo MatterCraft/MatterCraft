@@ -57,7 +57,17 @@ public class EnergyUtils {
 		return 0;
 	}
 
-	public static boolean getCanExtract(@Nullable TileEntity te, @Nullable EnumFacing side){
+	/**
+	 * States whether you can extract energy from the given {@link TileEntity}
+	 * 
+	 * @param te
+	 *            The {@link TileEntity} which holds energy
+	 * @param side
+	 *            The side of the {@link TileEntity} for use with
+	 *            {@link Capability}
+	 * @return Whether you can extract energy from the given {@link TileEntity}
+	 */
+	public static boolean canExtract(@Nullable TileEntity te, @Nullable EnumFacing side) {
 		if (te == null)
 			return false;
 		if (te.hasCapability(CapabilityEnergy.ENERGY, side))
@@ -65,7 +75,17 @@ public class EnergyUtils {
 		return false;
 	}
 
-	public static boolean getCanRecive(@Nullable TileEntity te, @Nullable EnumFacing side){
+	/**
+	 * States whether the {@link TileEntity} given can receive energy
+	 * 
+	 * @param te
+	 *            The {@link TileEntity} which holds energy
+	 * @param side
+	 *            The side of the {@link TileEntity} for use with
+	 *            {@link Capability}
+	 * @return Whether the {@link TileEntity} given can receive energy
+	 */
+	public static boolean canReceive(@Nullable TileEntity te, @Nullable EnumFacing side) {
 		if (te == null)
 			return false;
 		if (te.hasCapability(CapabilityEnergy.ENERGY, side))
@@ -120,7 +140,7 @@ public class EnergyUtils {
 			return te.getCapability(CapabilityEnergy.ENERGY, side).extractEnergy(energy, simulate);
 		return 0;
 	}
-	
+
 	/**
 	 * Gives energy to all connecting energy handlers surrounding the target
 	 * block
@@ -165,7 +185,7 @@ public class EnergyUtils {
 		}
 		return energyGiven;
 	}
-	
+
 	/**
 	 * Takes energy from all connecting energy handlers surrounding the target
 	 * block
