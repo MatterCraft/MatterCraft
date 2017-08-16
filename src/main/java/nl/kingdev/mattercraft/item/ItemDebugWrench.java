@@ -20,7 +20,6 @@ import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidTankProperties;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.ItemStackHandler;
 import nl.kingdev.mattercraft.MatterCraft;
 import nl.kingdev.mattercraft.info.Reference;
 import nl.kingdev.mattercraft.util.EnergyUtils;
@@ -59,7 +58,7 @@ public class ItemDebugWrench extends Item {
 
                     }
                     if (t.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, facing)) {
-                    	IItemHandler handler = t.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, facing);
+                        IItemHandler handler = t.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, facing);
                         if (handler != null) {
                             playerIn.addChatMessage(new TextComponentString("ItemStackHandler Info:").setStyle(blue));
                             playerIn.addChatMessage(new TextComponentString("Slots: " + handler.getSlots()).setStyle(green));
