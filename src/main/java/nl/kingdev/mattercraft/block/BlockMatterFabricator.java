@@ -130,6 +130,17 @@ public class BlockMatterFabricator extends BlockMachine {
 	public boolean canConnectRedstone(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side) {
 		return side != EnumFacing.UP && side != EnumFacing.DOWN;
 	}
+	
+	@Override
+	public boolean hasComparatorInputOverride(IBlockState state) {
+		return true;
+	}
+	
+	@Override
+	public int getComparatorInputOverride(IBlockState state, World world, BlockPos pos) {
+		TileEntityMatterFabricator te = (TileEntityMatterFabricator) world.getTileEntity(pos);
+		return te.acceptingPhotons ? 1 : te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).getStackInSlot(0) != null ? 2 : 0;
+	}
 
 	@Override
 	protected BlockStateContainer createBlockState() {

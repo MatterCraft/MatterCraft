@@ -62,6 +62,8 @@ public class TileEntityMatterFabricator extends TileEntityBase implements ITicka
 						&& this.handler.getStackInSlot(0) == null && !this.acceptingPhotons) {
 					this.acceptingPhotons = true;
 					this.errors = 0;
+					IBlockState state = this.worldObj.getBlockState(this.pos);
+					this.worldObj.notifyBlockUpdate(this.pos, state, state, 3);
 					this.markDirty();
 				}
 
