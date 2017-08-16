@@ -26,8 +26,8 @@ public class TileEntityInfiniteMatterWater extends TileEntityBase implements ITi
     			if(this.tank.getFluidAmount() != 2048000)
     				this.tank.fillInternal(new FluidStack(FluidRegistry.WATER, this.tank.getCapacity()), true);
     			for(EnumFacing side : EnumFacing.VALUES)
-    				if(this.worldObj.getTileEntity(this.pos.offset(side)) != null && this.worldObj.getTileEntity(this.pos.offset(side)).hasCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, side))
-    					FluidUtil.tryFluidTransfer(this.worldObj.getTileEntity(this.pos.offset(side)).getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, side), this.tank, 4000, true);
+    				if(this.worldObj.getTileEntity(this.pos.offset(side)) != null && this.worldObj.getTileEntity(this.pos.offset(side)).hasCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, side.getOpposite()))
+    					FluidUtil.tryFluidTransfer(this.worldObj.getTileEntity(this.pos.offset(side)).getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, side.getOpposite()), this.tank, 4000, true);
     		}
     	}
     }
