@@ -1,7 +1,6 @@
 {
-    "__comment": "Model generated using MrCrayfish's Model Creator (http://mrcrayfish.com/modelcreator/)",
     "textures": {
-        "particle": "blocks/blocks/machine",
+        "particle": "mattercraft:blocks/machine",
         "0": "mattercraft:blocks/machine_small",
         "1": "mattercraft:blocks/machine",
         "2": "mattercraft:blocks/matter_fabricator_stand",

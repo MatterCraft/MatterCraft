@@ -1,6 +1,6 @@
 {
     "textures": {
-        "particle": "blocks/machine",
+        "particle": "mattercraft:blocks/machine",
         "side": "mattercraft:blocks/machine_small",
         "y": "mattercraft:blocks/machine"
     },

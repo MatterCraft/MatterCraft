@@ -25,9 +25,9 @@ public abstract class BlockMachine extends Block implements ITileEntityProvider 
 	 * East, West
 	 */
 	public static final AxisAlignedBB[] BASE_AABB = new AxisAlignedBB[] { new AxisAlignedBB(0, 0, 0, 1, 0.25D, 1),
-			new AxisAlignedBB(1, 1, 1, 0, 0.75D, 0), new AxisAlignedBB(1, 1, 1, 0, 0, 0.75D),
-			new AxisAlignedBB(0, 0, 0, 1, 1, 0.25D), new AxisAlignedBB(1, 1, 1, 0.75D, 0, 0),
-			new AxisAlignedBB(0, 0, 0, 0.25D, 1, 1) };
+			new AxisAlignedBB(1, 1, 1, 0, 0.75D, 0), new AxisAlignedBB(0, 0, 0, 1, 1, 0.25D),
+			new AxisAlignedBB(1, 1, 1, 0, 0, 0.75D), new AxisAlignedBB(0, 0, 0, 0.25D, 1, 1),
+			new AxisAlignedBB(1, 1, 1, 0.75D, 0, 0) };
 
 	public BlockMachine(String unlocalizedName) {
 		super(Material.IRON);
