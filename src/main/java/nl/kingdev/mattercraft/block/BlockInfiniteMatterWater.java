@@ -29,11 +29,9 @@ public class BlockInfiniteMatterWater extends BlockMachine {
 
     @Override
     public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, @Nullable ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
-        if (world.isRemote) {
-            FluidUtil.interactWithFluidHandler(heldItem, world.getTileEntity(pos).getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, side), player);
-        }
-        return true;
+        if (!world.isRemote)
+            return FluidUtil.interactWithFluidHandler(heldItem, world.getTileEntity(pos).getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, side), player);
+        return false;
     }
-
 
 }
