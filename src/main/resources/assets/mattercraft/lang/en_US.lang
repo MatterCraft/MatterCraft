@@ -4,6 +4,21 @@ tile.infinite_water.name=Infinite Water
 
 item.matter.name=Matter
 item.debug_wrench.name=Matter Wrench - Debug
+item.debug_wrench.info.block=[DEBUG] Block %s @ %s
+item.debug_wrench.info.redstone1=Redstone Info:
+item.debug_wrench.info.redstone2=Is Powered: %s, Signal Strength: %s, Is Power Source: %s
+item.debug_wrench.info.tileentity=TileEntity Info:
+item.debug_wrench.info.fluid1=Fluid Info:
+item.debug_wrench.info.fluid2=Tank Fluid: %s
+item.debug_wrench.info.fluid3=Tank Amount: %s mb / %s mb
+item.debug_wrench.info.fluid4=Can Extract %s, Can Insert: %s
+item.debug_wrench.info.inventory1=Inventory Info:
+item.debug_wrench.info.inventory2=Slots: 
+item.debug_wrench.info.inventory3=Slot %s: %s
+item.debug_wrench.info.inventory4=Slot %s is empty!
+item.debug_wrench.info.energy1=Energy Info:
+item.debug_wrench.info.energy2=Energy Amount: %s FE / %s FE
+item.debug_wrench.info.energy3=Can Extract: %s, Can Receive: %s
 
 itemGroup.mattercraft_items=Mattercraft Items
 itemGroup.mattercraft_blocks=Mattercraft Blocks
