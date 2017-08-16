@@ -1,9 +1,5 @@
 package nl.kingdev.mattercraft.item;
 
-import java.text.NumberFormat;
-
-import javax.swing.text.NumberFormatter;
-
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -28,6 +24,8 @@ import nl.kingdev.mattercraft.MatterCraft;
 import nl.kingdev.mattercraft.info.Reference;
 import nl.kingdev.mattercraft.util.EnergyUtils;
 
+import java.text.NumberFormat;
+
 public class ItemDebugWrench extends Item {
 
     public ItemDebugWrench() {
@@ -46,6 +44,8 @@ public class ItemDebugWrench extends Item {
             if (worldIn.getBlockState(pos).getBlock() != null) {
                 Block b = worldIn.getBlockState(pos).getBlock();
                 playerIn.addChatMessage(new TextComponentString("[DEBUG] Block " + b.getRegistryName() + " @ " + pos.toString()).setStyle(blue));
+                playerIn.addChatMessage(new TextComponentString("Redstone Info:").setStyle(blue));
+                playerIn.addChatMessage(new TextComponentString("Is Powered: " + worldIn.isBlockPowered(pos) + ", Signal Strength: " + worldIn.getRedstonePower(pos, facing) + ", Is Power Source: " + b.canProvidePower(worldIn.getBlockState(pos))).setStyle(green));
                 if (worldIn.getTileEntity(pos) != null) {
                     playerIn.addChatMessage(new TextComponentString("TileEntity Info:").setStyle(blue));
 
