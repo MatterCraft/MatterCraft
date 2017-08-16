@@ -55,7 +55,7 @@ public class BlockMatterFabricator extends BlockMachine {
 
 	@Override
 	public AxisAlignedBB getSelectedBoundingBox(IBlockState state, World worldIn, BlockPos pos) {
-		return BASE_AABB[getMetaFromState(state)].union(CENTRE[getMetaFromState(state)]);
+		return BASE_AABB[getMetaFromState(state)].union(CENTRE[getMetaFromState(state)]).offset(pos);
 	}
 
 	@Override
@@ -104,12 +104,16 @@ public class BlockMatterFabricator extends BlockMachine {
 	}
 	
 	@Override
+	public boolean isSideSolid(IBlockState base_state, IBlockAccess world, BlockPos pos, EnumFacing side) {
+		return true;
+	}
+	
+	@Override
 	public boolean shouldSideBeRendered(IBlockState currentState, IBlockAccess blockAccess, BlockPos pos,
 			EnumFacing side) {
 		IBlockState actualState = blockAccess.getBlockState(pos.offset(side));
         Block block = actualState.getBlock();
-
-        if (this == ModBlocks.infinteWater) {
+        if (this == ModBlocks.matterFabricator) {
             if (currentState != actualState) {
                 return true;
             }
@@ -118,8 +122,12 @@ public class BlockMatterFabricator extends BlockMachine {
                 return false;
             }
         }
-
         return block == this ? false : super.shouldSideBeRendered(currentState, blockAccess, pos, side);
+	}
+	
+	@Override
+	public boolean canConnectRedstone(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side) {
+		return side != EnumFacing.UP && side != EnumFacing.DOWN;
 	}
 
 	@Override

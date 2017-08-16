@@ -45,8 +45,9 @@ public class TileEntityMatterFabricator extends TileEntityBase implements ITicka
 	public void update() {
 		if (this.worldObj != null) {
 			if (!this.worldObj.isRemote) {
-				if (this.worldObj.isBlockPowered(this.pos) && this.handler.getStackInSlot(0) == null
-						&& !this.acceptingPhotons) {
+				if ((this.worldObj.isBlockPowered(this.pos)
+						|| this.worldObj.isBlockIndirectlyGettingPowered(this.pos) > 0)
+						&& this.handler.getStackInSlot(0) == null && !this.acceptingPhotons) {
 					this.acceptingPhotons = true;
 					this.errors = 0;
 				}
@@ -65,7 +66,7 @@ public class TileEntityMatterFabricator extends TileEntityBase implements ITicka
 				}
 
 				if (this.acceptingPhotons && this.errors >= 5) {
-					this.worldObj.createExplosion(null, this.pos.getX(), this.pos.getY(), this.pos.getZ(), 25, true);
+					this.worldObj.createExplosion(null, this.pos.getX(), this.pos.getY(), this.pos.getZ(), 25, false);
 					this.acceptingPhotons = false;
 					this.errors = 0;
 				}

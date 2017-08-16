@@ -35,7 +35,7 @@ public class BlockPhotonGenerator extends BlockMachine {
 	
 	@Override
 	public AxisAlignedBB getSelectedBoundingBox(IBlockState state, World worldIn, BlockPos pos) {
-		return BASE_AABB[getMetaFromState(state)];
+		return BASE_AABB[getMetaFromState(state)].offset(pos);
 	}
 
 	@Override
@@ -79,7 +79,7 @@ public class BlockPhotonGenerator extends BlockMachine {
 		IBlockState actualState = blockAccess.getBlockState(pos.offset(side));
         Block block = actualState.getBlock();
 
-        if (this == ModBlocks.infinteWater) {
+        if (this == ModBlocks.photonGenerator) {
             if (currentState != actualState) {
                 return true;
             }
@@ -90,6 +90,11 @@ public class BlockPhotonGenerator extends BlockMachine {
         }
 
         return block == this ? false : super.shouldSideBeRendered(currentState, blockAccess, pos, side);
+	}
+	
+	@Override
+	public boolean isSideSolid(IBlockState base_state, IBlockAccess world, BlockPos pos, EnumFacing side) {
+		return true;
 	}
 	
 	@Override
