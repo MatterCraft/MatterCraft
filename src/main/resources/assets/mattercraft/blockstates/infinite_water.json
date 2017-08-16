@@ -1,5 +1,5 @@
 {
-  "variants": {
-    "normal": { "model": "mattercraft:infinite_water" }
-  }
+    "variants": {
+        "normal": { "model": "mattercraft:infinite_water" }
+    }
 }

@@ -34,7 +34,7 @@ public class ItemDebugWrench extends Item {
     public EnumActionResult onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         Style blue = new Style().setColor(TextFormatting.AQUA);
         Style green = new Style().setColor(TextFormatting.GREEN);
-        if (worldIn.isRemote) {
+        if (!worldIn.isRemote) {
             if(!playerIn.isSneaking() || playerIn.isSpectator()) return EnumActionResult.PASS;
             if (worldIn.getBlockState(pos).getBlock() != null) {
                 Block b = worldIn.getBlockState(pos).getBlock();

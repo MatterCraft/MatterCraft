@@ -1,0 +1,10 @@
+{
+	"parent": "mattercraft:block/machine_base",
+    "display": {
+       "gui": {
+           "translation": [ 0, 0, 0 ],
+           "rotation": [ 30, 135, 0 ],
+           "scale": [ 0.6, 0.6, 0.6 ]
+       }
+    }
+}

@@ -1,0 +1,10 @@
+{
+    "variants": {
+        "facing=north": { "model": "mattercraft:matter_fabricator", "x": 270 },
+        "facing=east": { "model": "mattercraft:matter_fabricator", "x": 270, "y": 90 },
+        "facing=south": { "model": "mattercraft:matter_fabricator", "x": 90 },
+        "facing=west": { "model": "mattercraft:matter_fabricator", "x": 90, "y": 90 },
+        "facing=up": { "model": "mattercraft:matter_fabricator", "x": 180 },
+        "facing=down": { "model": "mattercraft:matter_fabricator" }
+    }
+}

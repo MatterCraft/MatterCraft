@@ -52,8 +52,8 @@ public class TileEntityMatterFabricator extends TileEntityBase implements ITicka
 				if(this.acceptingPhotons && this.tank.getFluidAmount() < 1000)
 					this.errors++;
 				
-				if(this.acceptingPhotons && this.photons != 0 && this.photons % 40 == 0 && this.tank.getFluidAmount() >= 1000)
-					this.tank.drainInternal(500, true);
+				if(this.acceptingPhotons && this.photons != 0 && this.photons % 20 == 0 && this.tank.getFluidAmount() >= 1000)
+					this.tank.drainInternal(1000, true);
 				
 				if (this.photons >= 30000) { // 25 * 60 * 20
 					this.handler.setStackInSlot(0, new ItemStack(ModItems.matter));
