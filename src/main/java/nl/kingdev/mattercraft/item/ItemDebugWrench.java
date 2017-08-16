@@ -14,12 +14,15 @@ import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
-import net.minecraftforge.fluids.FluidTank;
+import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+import net.minecraftforge.fluids.capability.IFluidHandler;
+import net.minecraftforge.fluids.capability.IFluidTankProperties;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import nl.kingdev.mattercraft.MatterCraft;
 import nl.kingdev.mattercraft.info.Reference;
+import nl.kingdev.mattercraft.util.EnergyUtils;
 
 public class ItemDebugWrench extends Item {
 
@@ -35,7 +38,7 @@ public class ItemDebugWrench extends Item {
         Style blue = new Style().setColor(TextFormatting.AQUA);
         Style green = new Style().setColor(TextFormatting.GREEN);
         if (!worldIn.isRemote) {
-            if(!playerIn.isSneaking() || playerIn.isSpectator()) return EnumActionResult.PASS;
+            if (!playerIn.isSneaking() || playerIn.isSpectator()) return EnumActionResult.PASS;
             if (worldIn.getBlockState(pos).getBlock() != null) {
                 Block b = worldIn.getBlockState(pos).getBlock();
                 playerIn.addChatMessage(new TextComponentString("[DEBUG] Block " + b.getRegistryName() + " @ " + pos.toString()).setStyle(blue));
@@ -44,36 +47,40 @@ public class ItemDebugWrench extends Item {
 
                     TileEntity t = worldIn.getTileEntity(pos);
                     if (t.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, facing)) {
-                        FluidTank tank = null;
-                        try {
-                            tank = (FluidTank) t.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, facing);
-                        } catch (Exception e) {
-
-                        }
-                        if (tank != null){
+                        IFluidHandler ta = t.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, facing);
+                        if (ta != null) {
+                            IFluidTankProperties tank = ta.getTankProperties()[0];
                             playerIn.addChatMessage(new TextComponentString("FluidTank Info:").setStyle(blue));
-                            playerIn.addChatMessage(new TextComponentString("Tank Fluid: " + tank.getFluid().getLocalizedName()).setStyle(green));
-                            playerIn.addChatMessage(new TextComponentString("Tank Amount: " + tank.getFluidAmount() + "mb / " + tank.getCapacity() + "mb").setStyle(green));
+                            playerIn.addChatMessage(new TextComponentString("Tank Fluid: " + tank.getContents().getLocalizedName()).setStyle(green));
+                            playerIn.addChatMessage(new TextComponentString("Tank Amount: " + tank.getContents().amount + "mb / " + tank.getCapacity() + "mb").setStyle(green));
                             playerIn.addChatMessage(new TextComponentString("Can Extract: " + tank.canDrain() + ", Can Insert: " + tank.canFill()).setStyle(green));
                         }
 
                     }
-                    if(t.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, facing)){
+                    if (t.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, facing)) {
                         ItemStackHandler handler = null;
                         try {
                             handler = (ItemStackHandler) t.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, facing);
-                        } catch (Exception e){
+                        } catch (Exception e) {
 
                         }
-                        if(handler != null){
+                        if (handler != null) {
                             playerIn.addChatMessage(new TextComponentString("ItemStackHandler Info:").setStyle(blue));
                             playerIn.addChatMessage(new TextComponentString("Slots: " + handler.getSlots()).setStyle(green));
                             for (int i = 0; i < handler.getSlots(); i++) {
                                 ItemStack s = handler.getStackInSlot(i);
-                                if(s != null) playerIn.addChatMessage(new TextComponentString("Slot " + i + ": " + s.toString()).setStyle(green));
-                                else playerIn.addChatMessage(new TextComponentString("Slot " + i + " is empty!").setStyle(green));
+                                if (s != null)
+                                    playerIn.addChatMessage(new TextComponentString("Slot " + i + ": " + s.toString()).setStyle(green));
+                                else
+                                    playerIn.addChatMessage(new TextComponentString("Slot " + i + " is empty!").setStyle(green));
                             }
                         }
+                    }
+                    if(t.hasCapability(CapabilityEnergy.ENERGY, facing)){
+                        playerIn.addChatMessage(new TextComponentString("Energy Info:").setStyle(blue));
+                        playerIn.addChatMessage(new TextComponentString("Energy Amount: " + EnergyUtils.getEnergyStored(t, facing) +  "rf / " + EnergyUtils.getMaxEnergyStored(t, facing) + "rf").setStyle(green));
+                        playerIn.addChatMessage(new TextComponentString("Can Extract: " + EnergyUtils.getCanExtract(t, facing) + ", Can Recive: " + EnergyUtils.getCanRecive(t, facing)).setStyle(green));
+
                     }
 
 

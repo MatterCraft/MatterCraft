@@ -1,18 +1,17 @@
 package nl.kingdev.mattercraft.util;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map.Entry;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.energy.CapabilityEnergy;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map.Entry;
 
 /**
  * Everything you need for energy
@@ -56,6 +55,22 @@ public class EnergyUtils {
 		if (te.hasCapability(CapabilityEnergy.ENERGY, side))
 			return te.getCapability(CapabilityEnergy.ENERGY, side).getMaxEnergyStored();
 		return 0;
+	}
+
+	public static boolean getCanExtract(@Nullable TileEntity te, @Nullable EnumFacing side){
+		if (te == null)
+			return false;
+		if (te.hasCapability(CapabilityEnergy.ENERGY, side))
+			return te.getCapability(CapabilityEnergy.ENERGY, side).canExtract();
+		return false;
+	}
+
+	public static boolean getCanRecive(@Nullable TileEntity te, @Nullable EnumFacing side){
+		if (te == null)
+			return false;
+		if (te.hasCapability(CapabilityEnergy.ENERGY, side))
+			return te.getCapability(CapabilityEnergy.ENERGY, side).canReceive();
+		return false;
 	}
 
 	/**
