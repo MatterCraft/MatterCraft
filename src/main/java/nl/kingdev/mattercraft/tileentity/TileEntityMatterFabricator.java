@@ -1,5 +1,6 @@
 package nl.kingdev.mattercraft.tileentity;
 
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
@@ -8,7 +9,6 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
-import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import nl.kingdev.mattercraft.block.BlockMatterFabricator;
@@ -35,6 +35,18 @@ public class TileEntityMatterFabricator extends TileEntityBase implements ITicka
 			protected int getStackLimit(int slot, ItemStack stack) {
 				return 1;
 			}
+			
+			@Override
+			public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
+				return stack;
+			}
+			
+			@Override
+			public ItemStack extractItem(int slot, int amount, boolean simulate) {
+				IBlockState state = worldObj.getBlockState(pos);
+				worldObj.notifyBlockUpdate(pos, state, state, 3);
+				return super.extractItem(slot, amount, simulate);
+			}
 		};
 		this.tank = new FluidTank(FluidRegistry.WATER, 0, 16000);
 		this.tank.setCanDrain(false);
@@ -50,25 +62,34 @@ public class TileEntityMatterFabricator extends TileEntityBase implements ITicka
 						&& this.handler.getStackInSlot(0) == null && !this.acceptingPhotons) {
 					this.acceptingPhotons = true;
 					this.errors = 0;
+					this.markDirty();
 				}
 
-				if (this.acceptingPhotons && this.tank.getFluidAmount() < 1000)
+				if (this.acceptingPhotons && this.tank.getFluidAmount() < 1000) {
 					this.errors++;
+					this.markDirty();
+				}
 
 				if (this.acceptingPhotons && this.photons != 0 && this.photons % 20 == 0
-						&& this.tank.getFluidAmount() >= 1000)
+						&& this.tank.getFluidAmount() >= 1000) {
 					this.tank.drainInternal(1000, true);
+					this.markDirty();
+				}
 
 				if (this.photons >= 30000) { // 25 * 60 * 20
 					this.handler.setStackInSlot(0, new ItemStack(ModItems.matter));
+					IBlockState state = this.worldObj.getBlockState(this.pos);
+					this.worldObj.notifyBlockUpdate(this.pos, state, state, 3);
 					this.acceptingPhotons = false;
 					this.photons = 0;
+					this.markDirty();
 				}
 
 				if (this.acceptingPhotons && this.errors >= 5) {
-					this.worldObj.createExplosion(null, this.pos.getX(), this.pos.getY(), this.pos.getZ(), 25, false);
+					this.worldObj.createExplosion(null, this.pos.getX(), this.pos.getY(), this.pos.getZ(), 25, true);
 					this.acceptingPhotons = false;
 					this.errors = 0;
+					this.markDirty();
 				}
 			}
 		}

@@ -26,6 +26,7 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.UniversalBucket;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+import net.minecraftforge.items.CapabilityItemHandler;
 import nl.kingdev.mattercraft.init.ModBlocks;
 import nl.kingdev.mattercraft.tileentity.TileEntityMatterFabricator;
 import nl.kingdev.mattercraft.util.Utils;
@@ -154,10 +155,15 @@ public class BlockMatterFabricator extends BlockMachine {
 	@Override
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand,
 			ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
-		if (!world.isRemote)
+		if (!world.isRemote) {
+			if(heldItem == null) {
+				player.setHeldItem(hand, world.getTileEntity(pos).getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).extractItem(0, 1, false));
+				world.notifyBlockUpdate(pos, state, state, 3);
+			}
 			return FluidUtil.interactWithFluidHandler(heldItem,
 					world.getTileEntity(pos).getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, side),
 					player);
+		}
 		return false;
 	}
 
