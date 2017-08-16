@@ -3,6 +3,7 @@ tile.photon_generator.name=Photon Generator
 tile.infinite_water.name=Infinite Water
 
 item.matter.name=Matter
+item.debug_wrench.name=Matter Wrench - Debug
 
 itemGroup.mattercraft_items=Mattercraft Items
 itemGroup.mattercraft_blocks=Mattercraft Blocks

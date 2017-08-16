@@ -9,6 +9,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import nl.kingdev.mattercraft.info.Reference;
 import nl.kingdev.mattercraft.item.ItemCompressionStone;
+import nl.kingdev.mattercraft.item.ItemDebugWrench;
 import nl.kingdev.mattercraft.item.ItemMatter;
 import nl.kingdev.mattercraft.util.LoggerUtils;
 import nl.kingdev.mattercraft.util.Utils;
@@ -23,6 +24,7 @@ public class ModItems {
     private static List<Item> items = new ArrayList();
     public static Item matter = new ItemMatter();
     public static Item compressionStone = new ItemCompressionStone();
+    public static Item debugWrench = new ItemDebugWrench();
     public static void register() {
 
         for(Field field : ModItems.class.getFields()) {
