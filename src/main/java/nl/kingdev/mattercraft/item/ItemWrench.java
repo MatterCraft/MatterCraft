@@ -24,10 +24,14 @@ public class ItemWrench extends Item {
 	}
 	
 	@Override
-	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos,
-			EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+	public EnumActionResult onItemUseFirst(ItemStack stack, EntityPlayer player, World world, BlockPos pos,
+			EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
 		if (world.isAirBlock(pos))
 			return EnumActionResult.PASS;
+		if(world.getBlockState(pos).getBlock().rotateBlock(world, pos, side)) {
+			player.swingArm(hand);
+			return EnumActionResult.SUCCESS;
+		}
 		IBlockState state = Utils.rotateBlock(world, pos);
 		if(state != world.getBlockState(pos)) {
 			world.setBlockState(pos, state, 3);
