@@ -1,6 +1,6 @@
 {
 	"parent": "item/handheld",
 	"textures": {
-		"layer0": "mattercraft:items/debug_wrench"
+		"layer0": "mattercraft:items/wrench"
 	}
 }
