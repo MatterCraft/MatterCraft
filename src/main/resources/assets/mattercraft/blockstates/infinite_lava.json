@@ -1,0 +1,5 @@
+{
+    "variants": {
+        "normal": { "model": "mattercraft:infinite_lava" }
+    }
+}

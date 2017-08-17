@@ -9,6 +9,7 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import nl.kingdev.mattercraft.block.BlockInfiniteMatterLava;
 import nl.kingdev.mattercraft.block.BlockInfiniteMatterWater;
 import nl.kingdev.mattercraft.block.BlockMatterFabricator;
 import nl.kingdev.mattercraft.block.BlockPhotonGenerator;
@@ -27,6 +28,7 @@ public class ModBlocks {
     public static Block matterFabricator = new BlockMatterFabricator();
     public static Block photonGenerator = new BlockPhotonGenerator();
     public static Block infinteWater = new BlockInfiniteMatterWater();
+    public static Block infinteLava = new BlockInfiniteMatterLava();
 
     public static void register() {
 

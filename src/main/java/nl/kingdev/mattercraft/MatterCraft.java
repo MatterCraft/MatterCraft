@@ -10,6 +10,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import nl.kingdev.mattercraft.info.Reference;
 import nl.kingdev.mattercraft.init.ModBlocks;
 import nl.kingdev.mattercraft.init.ModItems;
+import nl.kingdev.mattercraft.init.ModRecipies;
 import nl.kingdev.mattercraft.proxy.CommonProxy;
 import nl.kingdev.mattercraft.util.LoggerUtils;
 import nl.kingdev.mattercraft.util.Utils;
@@ -45,6 +46,8 @@ public class MatterCraft {
     @Mod.EventHandler
     public void onInit(FMLInitializationEvent e) {
         proxy.onInit(e);
+        ModRecipies.registerCrafting();
+        ModRecipies.registerFurnace();
         Utils.getLogger().info("*MatterCraft* Total registrations of Items And Blocks : " + LoggerUtils.riabfmc);
     }
 

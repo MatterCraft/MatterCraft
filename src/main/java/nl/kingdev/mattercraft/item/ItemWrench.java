@@ -16,7 +16,7 @@ import nl.kingdev.mattercraft.util.Utils;
 
 public class ItemWrench extends Item {
 	
-	public ItemWrench() {
+	public  ItemWrench() {
 		this.setUnlocalizedName("wrench");
 		this.setRegistryName(new ResourceLocation(Reference.mod_id, "wrench"));
 		this.setMaxStackSize(1);

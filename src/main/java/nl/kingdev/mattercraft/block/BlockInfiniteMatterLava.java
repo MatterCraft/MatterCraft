@@ -14,15 +14,15 @@ import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import nl.kingdev.mattercraft.init.ModBlocks;
-import nl.kingdev.mattercraft.tileentity.TileEntityInfiniteMatterWater;
+import nl.kingdev.mattercraft.tileentity.TileEntityInfiniteMatterLava;
 
 import javax.annotation.Nullable;
 
 //@Mod.EventBusSubscriber
-public class BlockInfiniteMatterWater extends BlockMachine {
+public class BlockInfiniteMatterLava extends BlockMachine {
 
-	public BlockInfiniteMatterWater() {
-		super("infinite_water");
+	public BlockInfiniteMatterLava() {
+		super("infinite_lava");
 	}
 
 	@Override
@@ -46,7 +46,7 @@ public class BlockInfiniteMatterWater extends BlockMachine {
 		IBlockState actualState = blockAccess.getBlockState(pos.offset(side));
 		Block block = actualState.getBlock();
 
-		if (this == ModBlocks.infinteWater) {
+		if (this == ModBlocks.infinteLava) {
 			if (currentState != actualState) {
 				return true;
 			}
@@ -66,7 +66,7 @@ public class BlockInfiniteMatterWater extends BlockMachine {
 
 	@Override
 	public TileEntity createNewTileEntity(World worldIn, int meta) {
-		return new TileEntityInfiniteMatterWater();
+		return new TileEntityInfiniteMatterLava();
 	}
 
 	@Override
