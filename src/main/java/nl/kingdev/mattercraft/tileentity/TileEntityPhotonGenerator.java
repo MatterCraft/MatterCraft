@@ -25,6 +25,7 @@ public class TileEntityPhotonGenerator extends TileEntityBase implements ITickab
 
 	public TileEntityPhotonGenerator() {
 		this.storage = new CustomEnergyStorage(2500000, 25000, 0);
+		this.binder = new Binder(ModBlocks.matterFabricator.getDefaultState());
 	}
 
 	@Override
