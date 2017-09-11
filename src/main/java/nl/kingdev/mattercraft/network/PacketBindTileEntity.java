@@ -65,7 +65,7 @@ public class PacketBindTileEntity implements IMessage {
 		buf.writeInt(this.targetPos.getZ());
 	}
 
-	protected static class Handler implements IMessageHandler<PacketBindTileEntity, IMessage> {
+	public static class Handler implements IMessageHandler<PacketBindTileEntity, IMessage> {
 
 		@Override
 		public IMessage onMessage(PacketBindTileEntity message, MessageContext ctx) {
