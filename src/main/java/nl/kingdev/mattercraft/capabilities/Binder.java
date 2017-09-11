@@ -2,12 +2,13 @@ package nl.kingdev.mattercraft.capabilities;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.nbt.NBTBase;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagIntArray;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.util.INBTSerializable;
 
-public class Binder implements IBindable, INBTSerializable<NBTTagIntArray> {
+public class Binder implements IBindable, INBTSerializable<NBTTagCompound> {
 	
 	private BlockPos targetPos;
 	private IBlockState targetState;
@@ -43,13 +44,16 @@ public class Binder implements IBindable, INBTSerializable<NBTTagIntArray> {
 	}
 
 	@Override
-	public NBTTagIntArray serializeNBT() {
-		return new NBTTagIntArray(new int[] { this.targetPos.getX(), this.targetPos.getY(), this.targetPos.getZ() });
+	public NBTTagCompound serializeNBT() {
+		NBTTagCompound nbt = new NBTTagCompound();
+		nbt.setIntArray("TargetPos", new int[] { this.targetPos.getX(), this.targetPos.getY(), this.targetPos.getZ() });
+		return nbt;
 	}
 
 	@Override
-	public void deserializeNBT(NBTTagIntArray nbt) {
-		this.targetPos = new BlockPos(nbt.getIntArray()[0], nbt.getIntArray()[1], nbt.getIntArray()[2]);
+	public void deserializeNBT(NBTTagCompound nbt) {
+		int[] pos = nbt.getIntArray("TargetPos");
+		this.targetPos = new BlockPos(pos[0], pos[1], pos[2]);
 	}
 
 }

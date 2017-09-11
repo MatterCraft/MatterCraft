@@ -62,7 +62,7 @@ public class TileEntityPhotonGenerator extends TileEntityBase implements ITickab
 	public void readFromNBT(NBTTagCompound nbt) {
 		super.readFromNBT(nbt);
 		this.storage.readFromNBT(nbt);
-		this.binder.deserializeNBT((NBTTagIntArray) nbt.getTag("TargetPos"));
+		this.binder.deserializeNBT(nbt.getCompoundTag("Binder"));
 	}
 
 	@Override
