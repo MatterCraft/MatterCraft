@@ -9,6 +9,7 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import nl.kingdev.mattercraft.info.Reference;
 import nl.kingdev.mattercraft.init.ModBlocks;
+import nl.kingdev.mattercraft.init.ModCapabilities;
 import nl.kingdev.mattercraft.init.ModItems;
 import nl.kingdev.mattercraft.init.ModRecipies;
 import nl.kingdev.mattercraft.proxy.CommonProxy;
@@ -39,6 +40,7 @@ public class MatterCraft {
     public void onPreInit(FMLPreInitializationEvent e) {
         ModItems.register();
         ModBlocks.register();
+        ModCapabilities.registerCapabilities();
         proxy.onPreInit(e);
     }
 

@@ -5,6 +5,7 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import nl.kingdev.mattercraft.info.Reference;
+import nl.kingdev.mattercraft.network.PacketHandler;
 import nl.kingdev.mattercraft.tileentity.TileEntityInfiniteMatterLava;
 import nl.kingdev.mattercraft.tileentity.TileEntityInfiniteMatterWater;
 import nl.kingdev.mattercraft.tileentity.TileEntityMatterFabricator;
@@ -13,7 +14,7 @@ import nl.kingdev.mattercraft.tileentity.TileEntityPhotonGenerator;
 public class CommonProxy {
 
     public void onPreInit(FMLPreInitializationEvent e) {
-
+    	PacketHandler.registerMessages(Reference.mod_id);
     }
 
     public void onInit(FMLInitializationEvent e) {

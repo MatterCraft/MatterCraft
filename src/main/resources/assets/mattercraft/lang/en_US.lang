@@ -4,13 +4,16 @@ tile.infinite_water.name=Infinite Water
 tile.infinite_lava.name=Infinite Lava
 
 item.matter.name=Matter
+item.wrench.name=Matter Wrench
+item.wrench.target=Targetting block (%s) at %s %s %s
+item.wrench.bind=Bound block (%s) at %s %s %s to block (%s) at %s %s %s
 item.debug_wrench.name=Matter Wrench - Debug
 
 itemGroup.mattercraft_items=Mattercraft Items
 itemGroup.mattercraft_blocks=Mattercraft Blocks
 
 
-item.debug_wrench.info.block=[DEBUG] Block %s @ %s
+item.debug_wrench.info.block=[DEBUG] Block %s at %s
 item.debug_wrench.info.redstone1=Redstone Info:
 item.debug_wrench.info.redstone2=Is Powered: %s, Signal Strength: %s, Is Power Source: %s
 item.debug_wrench.info.tileentity=TileEntity Info:
