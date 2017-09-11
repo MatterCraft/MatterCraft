@@ -46,12 +46,15 @@ public class Binder implements IBindable, INBTSerializable<NBTTagCompound> {
 	@Override
 	public NBTTagCompound serializeNBT() {
 		NBTTagCompound nbt = new NBTTagCompound();
-		nbt.setIntArray("TargetPos", new int[] { this.targetPos.getX(), this.targetPos.getY(), this.targetPos.getZ() });
+		if(this.targetPos != null)
+			nbt.setIntArray("TargetPos", new int[] { this.targetPos.getX(), this.targetPos.getY(), this.targetPos.getZ() });
 		return nbt;
 	}
 
 	@Override
 	public void deserializeNBT(NBTTagCompound nbt) {
+		if(!nbt.hasKey("TargetPos"))
+			return;
 		int[] pos = nbt.getIntArray("TargetPos");
 		this.targetPos = new BlockPos(pos[0], pos[1], pos[2]);
 	}
