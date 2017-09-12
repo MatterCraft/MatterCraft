@@ -5,9 +5,11 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import nl.kingdev.mattercraft.client.tesr.TileEntityMatterFabricatorRenderer;
+import nl.kingdev.mattercraft.client.tesr.TileEntityPhotonGeneratorRenderer;
 import nl.kingdev.mattercraft.init.ModBlocks;
 import nl.kingdev.mattercraft.init.ModItems;
 import nl.kingdev.mattercraft.tileentity.TileEntityMatterFabricator;
+import nl.kingdev.mattercraft.tileentity.TileEntityPhotonGenerator;
 
 public class ClientProxy extends CommonProxy {
 
@@ -17,6 +19,7 @@ public class ClientProxy extends CommonProxy {
         ModItems.registerRenders();
         ModBlocks.registerRenders();
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityMatterFabricator.class, new TileEntityMatterFabricatorRenderer());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityPhotonGenerator.class, new TileEntityPhotonGeneratorRenderer());
     }
 
     @Override

@@ -43,10 +43,13 @@ public class ItemWrench extends Item {
 				BlockPos tileEntityPos = new BlockPos(tileEntityPosInts[0], tileEntityPosInts[1], tileEntityPosInts[2]);
 				EnumFacing tileEntitySide = EnumFacing.byName(stack.getTagCompound().getString("TileEntitySide"));
 				TileEntity te = world.getTileEntity(tileEntityPos);
-				if (te.hasCapability(ModCapabilities.CAPABILITIY_BINDABLE, tileEntitySide)
+				if (te != null && te.hasCapability(ModCapabilities.CAPABILITIY_BINDABLE, tileEntitySide)
 						&& te.getCapability(ModCapabilities.CAPABILITIY_BINDABLE, tileEntitySide).canBind(pos,
 								world.getBlockState(pos), world.getTileEntity(pos))) {
 					PacketHandler.INSTANCE.sendToServer(new PacketBindTileEntity(tileEntityPos, tileEntitySide, pos));
+					IBindable binder = te.getCapability(ModCapabilities.CAPABILITIY_BINDABLE, tileEntitySide);
+					if(binder.canBind(pos, world.getBlockState(pos), world.getTileEntity(pos)))
+						binder.setTargetPosition(pos);
 					player.addChatComponentMessage(new TextComponentTranslation("item.wrench.bind",
 							world.getBlockState(tileEntityPos).getBlock()
 									.getPickBlock(world.getBlockState(tileEntityPos),

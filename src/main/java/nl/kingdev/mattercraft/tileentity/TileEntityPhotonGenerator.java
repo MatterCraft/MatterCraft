@@ -23,6 +23,7 @@ public class TileEntityPhotonGenerator extends TileEntityBase implements ITickab
 
 	private Binder binder;
 	private CustomEnergyStorage storage;
+	public boolean fireing = false;
 
 	public TileEntityPhotonGenerator() {
 		this.storage = new CustomEnergyStorage(2500000, 25000, 0);
@@ -35,15 +36,28 @@ public class TileEntityPhotonGenerator extends TileEntityBase implements ITickab
 			if (!this.worldObj.isRemote) {
 				if (this.binder.isBound()) {
 					// SHOULD FIRE BEAM
-					if (((TileEntityMatterFabricator) this.worldObj
-							.getTileEntity(this.binder.getTargetPosition())).acceptingPhotons
+					if (this.binder.canBind(this.binder.getTargetPosition(),
+							this.worldObj.getBlockState(this.binder.getTargetPosition()),
+							this.worldObj.getTileEntity(this.binder.getTargetPosition()))
+							&& ((TileEntityMatterFabricator) this.worldObj
+									.getTileEntity(this.binder.getTargetPosition())).acceptingPhotons
 							&& this.storage.extractEnergyInternal(25000, true) == 25000) {
+						if (!this.fireing) {
+							this.fireing = true;
+							this.worldObj.notifyBlockUpdate(this.pos, this.worldObj.getBlockState(this.pos),
+									this.worldObj.getBlockState(this.pos), 3);
+						}
+						markDirty();
 						// If it can take 25K RF and the matter fabricator is
 						// accepting photons
 						this.storage.extractEnergyInternal(25000, false);
 						((TileEntityMatterFabricator) this.worldObj
 								.getTileEntity(this.binder.getTargetPosition())).photons++;
-					}
+					} /*else {
+						this.fireing = false;
+						this.worldObj.notifyBlockUpdate(this.pos, this.worldObj.getBlockState(this.pos),
+								this.worldObj.getBlockState(this.pos), 3);
+					}*/
 				}
 			}
 		}
