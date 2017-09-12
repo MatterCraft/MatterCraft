@@ -22,6 +22,7 @@ import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.items.CapabilityItemHandler;
 import nl.kingdev.mattercraft.init.ModBlocks;
+import nl.kingdev.mattercraft.init.ModItems;
 import nl.kingdev.mattercraft.tileentity.TileEntityMatterFabricator;
 
 /**
@@ -162,6 +163,11 @@ public class BlockMatterFabricator extends BlockMachine {
 		if (!world.isRemote) {
 			if(heldItem == null) {
 				player.setHeldItem(hand, world.getTileEntity(pos).getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).extractItem(0, 1, false));
+				world.notifyBlockUpdate(pos, state, state, 3);
+			} else if(heldItem.getItem() == ModItems.matter && heldItem.stackSize < heldItem.getMaxStackSize()) {
+				ItemStack extracted = world.getTileEntity(pos).getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).extractItem(0, 1, false);
+				extracted.stackSize += heldItem.stackSize;
+				player.setHeldItem(hand, extracted);
 				world.notifyBlockUpdate(pos, state, state, 3);
 			}
 			return FluidUtil.interactWithFluidHandler(heldItem,

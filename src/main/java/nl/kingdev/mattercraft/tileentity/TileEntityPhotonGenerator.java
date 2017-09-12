@@ -12,6 +12,7 @@ import nl.kingdev.mattercraft.capabilities.Binder;
 import nl.kingdev.mattercraft.init.ModBlocks;
 import nl.kingdev.mattercraft.init.ModCapabilities;
 import nl.kingdev.mattercraft.util.CustomEnergyStorage;
+import nl.kingdev.mattercraft.util.Utils;
 
 /**
  * 
@@ -34,29 +35,34 @@ public class TileEntityPhotonGenerator extends TileEntityBase implements ITickab
 			if (!this.worldObj.isRemote) {
 				if (this.binder.isBound()) {
 					// SHOULD FIRE BEAM
-					if (this.storage.extractEnergyInternal(25000, true) == 25000
-							&& ((TileEntityMatterFabricator) this.worldObj
-									.getTileEntity(this.binder.getTargetPosition())).acceptingPhotons) {
-						// If it can take 25K RF and the matter fabricator is accepting photons
+					if (((TileEntityMatterFabricator) this.worldObj
+							.getTileEntity(this.binder.getTargetPosition())).acceptingPhotons
+							&& this.storage.extractEnergyInternal(25000, true) == 25000) {
+						// If it can take 25K RF and the matter fabricator is
+						// accepting photons
 						this.storage.extractEnergyInternal(25000, false);
-						((TileEntityMatterFabricator) this.worldObj.getTileEntity(this.binder.getTargetPosition())).photons++;
+						((TileEntityMatterFabricator) this.worldObj
+								.getTileEntity(this.binder.getTargetPosition())).photons++;
 					}
 				}
 			}
 		}
 	}
 
-//	private boolean findMatterFabricator() {
-//		for (BlockPos pos : BlockPos.getAllInBox(
-//				new BlockPos(this.pos.getX() - 6, this.pos.getY() - 6, this.pos.getZ() - 6),
-//				new BlockPos(this.pos.getX() + 6, this.pos.getY() + 6, this.pos.getZ() + 6))) {
-//			if (this.worldObj.getBlockState(pos).getBlock() == ModBlocks.matterFabricator) {
-//				this.matterFabricatorPos = pos;
-//				return true;
-//			}
-//		}
-//		return false;
-//	}
+	// private boolean findMatterFabricator() {
+	// for (BlockPos pos : BlockPos.getAllInBox(
+	// new BlockPos(this.pos.getX() - 6, this.pos.getY() - 6, this.pos.getZ() -
+	// 6),
+	// new BlockPos(this.pos.getX() + 6, this.pos.getY() + 6, this.pos.getZ() +
+	// 6))) {
+	// if (this.worldObj.getBlockState(pos).getBlock() ==
+	// ModBlocks.matterFabricator) {
+	// this.matterFabricatorPos = pos;
+	// return true;
+	// }
+	// }
+	// return false;
+	// }
 
 	@Override
 	public void readFromNBT(NBTTagCompound nbt) {
@@ -83,7 +89,7 @@ public class TileEntityPhotonGenerator extends TileEntityBase implements ITickab
 	public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
 		if (capability == CapabilityEnergy.ENERGY)
 			return (T) this.storage;
-		if(capability == ModCapabilities.CAPABILITIY_BINDABLE)
+		if (capability == ModCapabilities.CAPABILITIY_BINDABLE)
 			return (T) this.binder;
 		return super.getCapability(capability, facing);
 	}

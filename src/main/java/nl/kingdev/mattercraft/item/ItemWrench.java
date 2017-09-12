@@ -54,7 +54,7 @@ public class ItemWrench extends Item {
 													tileEntitySide, tileEntityPos),
 											world, tileEntityPos, player)
 									.getDisplayName(),
-							pos.getX(), pos.getY(), pos.getZ(),
+							tileEntityPos.getX(), tileEntityPos.getY(), tileEntityPos.getZ(),
 							world.getBlockState(pos).getBlock()
 									.getPickBlock(world.getBlockState(pos),
 											new RayTraceResult(RayTraceResult.Type.BLOCK, new Vec3d(hitX, hitY, hitZ),
@@ -62,6 +62,7 @@ public class ItemWrench extends Item {
 											world, pos, player)
 									.getDisplayName(),
 							pos.getX(), pos.getY(), pos.getZ()));
+					stack.setTagCompound(new NBTTagCompound());
 					return EnumActionResult.SUCCESS;
 				}
 			}
